@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {  //Login de Usuario
+  id String @id @default(uuid())
+  name String
+  email String
+  password String
+  create_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("users")
+}
+model Category {  //A categoria serve pra definir o tipo de produto, ex: bebidas, frutas, salgados etc
+  id String @id @default(uuid())
+  name String
+  create_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("categories")
+  produtcts Products[]  //vamos ter relação de Categoria com Produtos -- 1 para n, uma categoria pode ter varios produtos  
+}
+
+model Products {   //Essa tabela vai receber os produtos que a loja vai vender
+  id String @id @default(uuid())
+  name String
+  price String
+  description String
+  banner String
+  create_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  category Category @relation(fields: [category_id], references: [id])   //Quando cadastramos um produto devemos informar qual a categoria
+  
+
+  @@map("products")
+  category_id String  //Atraves dessa informaçao pegada da tabela produtos podemos definir de qual categoria ela é
+  items items[]
+
+}
+model Order {  //Pedidos, quando abrir uma mesa vamos cadastrar o pedido do cliente nessa order
+  id String @id @default(uuid())
+  table Int
+  status Boolean @default(false)
+  draft Boolean @default(true)
+  name String?
+
+  create_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  
+  @@map("orders")
+  items items[]
+}
+
+model items { //O pedido em especifico Ex: Pizza tamanho familia
+  id String @id @default(uuid())
+  ammout Int
+
+  create_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  
+  order Order @relation(fields: [order_id], references: [id])
+  product Products @relation(fields: [product_id], references: [id]) //Relacionamento com a tabela produto, para sabermos os dados do produto que o cliente escolheu
+
+  @@map("items")
+  order_id String
+  product_id String
+}
