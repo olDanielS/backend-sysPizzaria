@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 
-import { UserService } from "../../services/userService";
+import { CreateUserService } from "../../services/CreateUserService";
 
-class UserController{
+class CreateUserController{
     async handle(req:Request, res:Response){
 
         const {name, email, password} = req.body;
 
-        const userService = new UserService();
+        const userService = new CreateUserService();
 
         const exec = await userService.execute({name,email,password});
 
@@ -16,4 +16,4 @@ class UserController{
     }
 }
 
-export {UserController};
+export {CreateUserController};
