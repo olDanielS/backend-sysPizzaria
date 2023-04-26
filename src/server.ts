@@ -12,7 +12,7 @@ app.use(router); //default routes
 app.use(cors()); //enable cors for permission for whatever ips
 
 
-//midleware de error, todas as rotas vão passar primeiro aqui e se houver algum erro esse middleware vai mostrar
+//midleware de error, todas as rotas vão passar aqui e se houver algum erro esse middleware vai mostrar
 app.use((err: Error, req: Request, res: Response, next:NextFunction) => {
     if(err instanceof Error){
         //Se for uma instancia do tipo error 
