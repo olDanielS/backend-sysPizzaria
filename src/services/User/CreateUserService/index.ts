@@ -1,6 +1,6 @@
 import { hash } from "bcrypt"
 
-import prismaClient from "../../prisma"
+import prismaClient from "../../../prisma"
 
 interface UserInfo {
     name: string,

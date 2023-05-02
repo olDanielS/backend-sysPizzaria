@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma"
+import prismaClient from "../../../prisma"
 import { compare } from "bcrypt"
 import { sign } from "jsonwebtoken"
 
