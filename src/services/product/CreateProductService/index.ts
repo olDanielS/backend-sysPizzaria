@@ -11,7 +11,7 @@ interface ProductInfo {
 class CreateProductService {
     async execute({name, price, description, banner, category_id}: ProductInfo) {
 
-        if(!name || !price || !description || !banner || !category_id ){
+        if(!name || !price || !description || !category_id ){
             throw new Error("Arguments not found")
         }
 

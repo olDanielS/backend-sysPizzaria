@@ -1,6 +1,8 @@
 import express, {Request, Response, NextFunction} from 'express';
 import 'express-async-errors';
 
+import path from 'path';
+
 import cors from 'cors';
 
 import {router} from './routes';
@@ -11,6 +13,10 @@ app.use(express.json());  //Default responses from type json
 app.use(router); //default routes
 app.use(cors()); //enable cors for permission for whatever ips
 
+app.use(
+    '/files',
+    express.static(path.resolve(__dirname, '..', 'tmp'))  //Static routes for images
+)
 
 //midleware de error, todas as rotas vão passar aqui e se houver algum erro esse middleware vai mostrar
 app.use((err: Error, req: Request, res: Response, next:NextFunction) => {
