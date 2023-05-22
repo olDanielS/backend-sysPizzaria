@@ -11,7 +11,7 @@ import { CreateCategoryControler } from "./controllers/CreateCategoryControler";
 import { ListCategoryController } from "./controllers/ListCategoryController";
 
 import { CreateProductController } from "./controllers/CreateProductController";
-
+import { ListByCategoryController } from "./controllers/ListByCategoryControler";
 import uploadConfig from "./Config/multer";
 
 const router = Router();
@@ -28,6 +28,8 @@ router.post('/me', isAuthenticated, new DetailsUserController().handle)
 // ---- Caterorys
 router.post('/category', isAuthenticated, new CreateCategoryControler().handle)
 router.get('/category', isAuthenticated, new ListCategoryController().handle)
+router.get('/category', isAuthenticated, new ListCategoryController().handle)
+router.get('/category/product', isAuthenticated, new ListByCategoryController().handle)
 
 
 // ---- Products
